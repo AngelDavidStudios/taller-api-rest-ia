@@ -103,11 +103,14 @@ En cada paso mostrar: método, URL, código de estado y JSON.
 
 ## Rúbrica (10 pts) — checklist de revisión final
 
-- [ ] **4 pts** Funcionamiento base: GET, POST, PUT, PATCH, DELETE contra GoREST con códigos esperados y token vía `getpass` (demo en vivo o video corto).
-- [ ] **2 pts** Ampliación: log, validación previa, manejo de errores, recurso anidado de tareas (probado con token inválido y datos incompletos).
-- [ ] **2 pts** Informe formato UDLA con bitácora de prompts completa.
-- [ ] **1 pt** Defensa oral: el estudiante explica cualquier bloque del código.
-- [ ] **1 pt** Notebook compartido (y repo opcional) reproducible y sin credenciales expuestas.
+- [x] **4 pts** Funcionamiento base: GET, POST, PUT, PATCH, DELETE contra GoREST con códigos esperados y token vía `getpass` (demo en vivo o video corto).
+- [x] **2 pts** Ampliación: log, validación previa, manejo de errores, recurso anidado de tareas (probado con token inválido y datos incompletos).
+- [x] **2 pts** Informe formato UDLA con bitácora de prompts completa.
+- [ ] **1 pt** Defensa oral: el estudiante explica cualquier bloque del código. (depende del estudiante)
+
+Revisión final 2026-10-31: verificado repo público (200), notebook descargable por enlace sin login y sin token,
+log sin token, PDF fuera del repo (404), informe sin secciones pendientes. Pendiente del usuario: grabar la demo.
+- [x] **1 pt** Notebook compartido (y repo opcional) reproducible y sin credenciales expuestas.
 
 ## Estructura de archivos del proyecto
 
