@@ -31,3 +31,10 @@ Formato de cada entrada: **Prompt** (qué se pidió) → **Respuesta de la IA** 
   | GET final | /posts/1 | 200 OK — **título original: el cambio NO persistió** |
 - **Hallazgo:** JSONPlaceholder responde como si guardara, pero no persiste nada (sandbox). Además, ya se ve la diferencia PUT (reemplaza el recurso completo) vs PATCH (modifica solo el campo enviado).
 - **Corrección:** ninguna; funcionó a la primera.
+
+## Iteración 2 — Carga segura del token
+
+- **Prompt:** "Prepara la celda para cargar el token de GoREST con `getpass()`."
+- **Respuesta de la IA:** celda que pedía el token con `getpass()`, armaba `HEADERS` con `Authorization: Bearer` e imprimía solo la longitud del token.
+- **Revisión del estudiante:** "Los tokens se guardan fuera del código; hay que poner el token en los Secretos de Colab."
+- **Corrección:** la celda ahora lee `GOREST_TOKEN` de los Secretos de Colab (`google.colab.userdata.get`) y, si no existe o no tiene acceso, usa `getpass()` como respaldo. Se mantienen ambos porque la rúbrica pide "token vía getpass". El token sigue sin aparecer en el código, las salidas, el log ni el chat con la IA.

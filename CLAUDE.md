@@ -39,7 +39,9 @@ Fuente de verdad: `Instrucciones/Taller_Integracion_API_REST_con_IA.pdf` (releer
 ## Reglas de seguridad / honestidad académica (obligatorias)
 
 - **El token de GoREST NUNCA** se escribe en el código, en una celda, en el chat, en el log ni en el informe.
-  Se carga solo con `getpass()` y **lo ingresa el usuario** en Colab. Claude no debe pedirlo, leerlo ni teclearlo.
+  Se guarda en **Secretos de Colab** con el nombre `GOREST_TOKEN` (`google.colab.userdata.get`); si no existe,
+  respaldo con `getpass()` (la rúbrica exige "token vía getpass", por eso se mantienen ambos).
+  **Lo configura el usuario.** Claude no debe pedirlo, leerlo ni teclearlo.
 - Antes de compartir el notebook: verificar que ninguna celda ni salida contenga el token.
 - El uso de IA es obligatorio declararlo. La **bitácora de prompts** es evidencia académica: registrar cada
   iteración (qué se pidió, qué devolvió la IA, qué se corrigió y por qué) en `bitacora.md`.
