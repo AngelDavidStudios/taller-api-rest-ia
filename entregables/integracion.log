@@ -1,0 +1,28 @@
+2026-10-31 08:15:25 | INFO    | GET    https://gorest.co.in/public/v2/users?page=1&per_page=1 -> 200
+2026-10-31 08:16:21 | WARNING | GET    https://gorest.co.in/public/v2/users/8694141 -> 404 | No encontrado: el recurso no existe o ya fue dado de baja.
+2026-10-31 08:16:21 | WARNING | GET    https://gorest.co.in/public/v2/users (respuesta 429 SIMULADA) -> 429 | Límite de peticiones excedido: espera unos segundos antes de reintentar. reintentar en 2 s
+2026-10-31 08:16:35 | INFO    | GET    https://gorest.co.in/public/v2/users?page=1&per_page=5 -> 200
+2026-10-31 08:16:36 | INFO    | POST   https://gorest.co.in/public/v2/users -> 201
+2026-10-31 08:16:37 | INFO    | GET    https://gorest.co.in/public/v2/users/8694149 -> 200
+2026-10-31 08:16:37 | INFO    | PUT    https://gorest.co.in/public/v2/users/8694149 -> 200
+2026-10-31 08:16:38 | INFO    | PATCH  https://gorest.co.in/public/v2/users/8694149 -> 200
+2026-10-31 08:16:38 | INFO    | POST   https://gorest.co.in/public/v2/users/8694149/todos -> 201
+2026-10-31 08:16:39 | INFO    | PATCH  https://gorest.co.in/public/v2/todos/112086 -> 200
+2026-10-31 08:16:39 | INFO    | GET    https://gorest.co.in/public/v2/users/8694149/todos -> 200
+2026-10-31 08:16:40 | INFO    | DELETE https://gorest.co.in/public/v2/users/8694149 -> 204
+2026-10-31 08:16:40 | WARNING | GET    https://gorest.co.in/public/v2/users/8694149 -> 404 | No encontrado: el recurso no existe o ya fue dado de baja.
+2026-10-31 08:17:00 | INFO    | GET    https://gorest.co.in/public/v2/users?page=1&per_page=5 -> 200
+2026-10-31 08:17:00 | INFO    | POST   https://gorest.co.in/public/v2/users -> 201
+2026-10-31 08:17:01 | INFO    | GET    https://gorest.co.in/public/v2/users/8694150 -> 200
+2026-10-31 08:17:02 | INFO    | PUT    https://gorest.co.in/public/v2/users/8694150 -> 200
+2026-10-31 08:17:02 | INFO    | PATCH  https://gorest.co.in/public/v2/users/8694150 -> 200
+2026-10-31 08:17:02 | INFO    | POST   https://gorest.co.in/public/v2/users/8694150/todos -> 201
+2026-10-31 08:17:03 | INFO    | PATCH  https://gorest.co.in/public/v2/todos/112087 -> 200
+2026-10-31 08:17:03 | INFO    | GET    https://gorest.co.in/public/v2/users/8694150/todos -> 200
+2026-10-31 08:17:03 | INFO    | DELETE https://gorest.co.in/public/v2/users/8694150 -> 204
+2026-10-31 08:17:04 | WARNING | GET    https://gorest.co.in/public/v2/users/8694150 -> 404 | No encontrado: el recurso no existe o ya fue dado de baja.
+2026-10-31 08:17:16 | WARNING | POST   https://gorest.co.in/public/v2/users -> 401 | No autorizado: el token es inválido o no se envió. Revisa el secreto GOREST_TOKEN.
+2026-10-31 08:17:17 | WARNING | POST   https://gorest.co.in/public/v2/users -> 401 | No autorizado: el token es inválido o no se envió. Revisa el secreto GOREST_TOKEN.
+2026-10-31 08:17:17 | WARNING | POST   https://gorest.co.in/public/v2/users -> NO ENVIADO | validación: Faltan campos obligatorios: email, gender, status
+2026-10-31 08:17:17 | WARNING | POST   https://gorest.co.in/public/v2/users -> 422 | Datos rechazados por el CRM (faltan campos o hay valores inválidos/duplicados). email: can't be blank; gender: can't be blank, can be male of female; status: can't be blank
+2026-10-31 08:17:17 | WARNING | POST   https://gorest.co.in/public/v2/users -> NO ENVIADO | validación: El email debe ser corporativo (@techdistribuidora.com)

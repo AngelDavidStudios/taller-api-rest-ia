@@ -71,3 +71,41 @@ Formato de cada entrada: **Prompt** (qué se pidió) → **Respuesta de la IA** 
   | Dar de baja | DELETE /users/8694141 | 204 | **204 No Content** |
   | Comprobar baja | GET /users/8694141 | 404 | **404 Not Found** ("Resource not found") |
 - **Evidencia PUT vs PATCH:** el PUT envió los 4 campos y reemplazó name ("David Rueda" → "David Alejandro Rueda") y email. El PATCH envió solo `{"status": "inactive"}`, y name, email y gender quedaron como los dejó el PUT.
+
+## Iteración 4 — Prompt de iteración v2: ampliación obligatoria
+
+- **Prompt v2:**
+  ```
+  Modifica el programa:
+  1. Registra cada petición en integracion.log con fecha, hora, método, URL y código de estado.
+  2. Antes de enviar un POST o PUT, valida que el email tenga formato correcto y que gender y status
+     tengan valores permitidos, más mis reglas: nombre completo (nombre y apellido, solo letras,
+     mayúscula inicial, 5-60 caracteres), email corporativo @techdistribuidora.com y sin emails desechables.
+  3. Maneja los errores 401, 404, 422 y 429 con un mensaje claro en pantalla y en el log, sin detener el programa.
+  4. Crea una tarea para el usuario con POST /users/{id}/todos y márcala como completada con PATCH /todos/{id_tarea}.
+  Un cambio a la vez: generar, correr, probar, siguiente.
+  ```
+- **Respuesta de la IA:** una celda por cambio, cada una con su prueba al final:
+  - Celda 10, `registrar()`: logger con `FileHandler` (sin duplicar handlers al volver a ejecutar). Nunca registra headers, así el token no llega al log.
+  - Celda 11, `validar_cliente()`: devuelve la lista de errores. Se probó con 6 casos (válido, incompleto, nombre inválido, email desechable, no corporativo, valores no permitidos) y todos dieron lo esperado.
+  - Celda 12, `peticion()` + `manejar_respuesta()`: función central que valida, envía, maneja errores (incluidos los de red) y registra. Para el 422 muestra los campos que rechazó GoREST y para el 429 el tiempo de espera.
+  - Celda 13: flujo completo v2 con la tarea anidada.
+  - Celda 14: pruebas del camino de error.
+  - Celda 15: muestra y descarga `integracion.log`.
+- **Errores de la IA detectados y corregidos:**
+  1. **Hora del log en UTC.** La primera línea salió con `13:15:07` cuando en Ecuador eran las 08:15, porque Colab corre en UTC. *Detección:* se comparó con la hora local. *Corrección:* `os.environ["TZ"] = "America/Guayaquil"; time.tzset()` y se eliminó la línea con hora UTC del log.
+  2. **Celda temporal fallida.** Al reiniciar el log, la IA ejecutó tres acciones a la vez sin esperar el resultado. La primera falló (`NameError: os`), así que el archivo no se borró y la línea UTC siguió ahí. *Corrección:* otra celda temporal filtró esa línea. Lección: aplicar también aquí "un cambio a la vez".
+  3. **Zona horaria de `due_on` en la tarea.** La IA envió `2026-11-07T08:16:38` sin offset y GoREST lo guardó como `08:16:38+05:30` (hora de la India): vencimiento corrido 10,5 h. *Detección:* revisando el JSON de respuesta. *Corrección:* `.astimezone().isoformat()` envía `-05:00` y GoREST lo guardó como `18:47:02+05:30`, que equivale a 08:17:02 en Ecuador.
+  4. **El 429 no se provoca contra la API real** (sería saturar un servicio público). Se demuestra su manejo con una respuesta simulada que queda marcada como "SIMULADA" en pantalla y en el log.
+- **Resultado del flujo v2 (cliente 8694150, tarea 112087):** GET lista 200 · POST 201 · GET 200 · PUT 200 · PATCH 200 · POST todos 201 · PATCH todo 200 (pending → completed) · GET todos 200 · DELETE 204 · GET 404 (manejado).
+- **Camino de error:**
+  | Prueba | Resultado |
+  |---|---|
+  | POST sin token | **401** "Authentication failed" |
+  | POST con token inválido | **401** "Invalid token" |
+  | POST incompleto con validación | **No enviado**: faltan email, gender, status |
+  | POST incompleto sin validación | **422**: email/gender/status "can't be blank" |
+  | POST con email no corporativo | **No enviado**: firma personal |
+  | GET a cliente eliminado | **404** manejado |
+  | 429 simulado | Mensaje claro + "reintentar en 2 s" |
+- **Log:** `entregables/integracion.log` (28 líneas, sin token).
