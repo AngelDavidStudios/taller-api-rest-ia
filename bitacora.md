@@ -38,3 +38,36 @@ Formato de cada entrada: **Prompt** (qué se pidió) → **Respuesta de la IA** 
 - **Respuesta de la IA:** celda que pedía el token con `getpass()`, armaba `HEADERS` con `Authorization: Bearer` e imprimía solo la longitud del token.
 - **Revisión del estudiante:** "Los tokens se guardan fuera del código; hay que poner el token en los Secretos de Colab."
 - **Corrección:** la celda ahora lee `GOREST_TOKEN` de los Secretos de Colab (`google.colab.userdata.get`) y, si no existe o no tiene acceso, usa `getpass()` como respaldo. Se mantienen ambos porque la rúbrica pide "token vía getpass". El token sigue sin aparecer en el código, las salidas, el log ni el chat con la IA.
+
+## Iteración 3 — Prompt maestro v1: integración con GoREST
+
+- **Prompt maestro v1:**
+  ```
+  Actúa como desarrollador de integraciones.
+  Construye un programa en Python para Google Colab que consuma la API REST
+  de GoREST (https://gorest.co.in/public/v2) usando la librería requests:
+  1. Use el token (Secretos de Colab / getpass) en el header Authorization: Bearer.
+  2. Liste 5 usuarios con GET usando los parámetros page y per_page.
+  3. Cree un usuario con POST (name, email único, gender, status) y guarde su id.
+  4. Consulte ese usuario con GET por id.
+  5. Reemplace todos sus datos con PUT.
+  6. Cambie solo su status a inactive con PATCH.
+  7. Lo elimine con DELETE y compruebe que un GET posterior devuelve 404.
+  En cada paso muestra el método, la URL, el código de estado y el JSON.
+  Entrégame el código en celdas separadas y cómo ejecutarlo.
+  ```
+- **Respuesta de la IA:** una celda por operación (celdas 4 a 9), reutilizando `mostrar()`. Usa `params=` para la paginación y muestra los headers `x-pagination-*`, genera un email único con `time.time()` y el dominio `@techdistribuidora.com`, guarda `USER_ID` solo si el POST devuelve 201, y usa `timeout=15` en todas las peticiones.
+- **Primer intento:** la celda 4 falló con `NameError: name 'BASE_URL' is not defined`.
+  - **Diagnóstico:** la IA revisó el notebook y vio que la celda 3 (token) tenía `execution_count: null`. El estudiante la había ejecutado en otra pestaña o copia del notebook, que tiene otro entorno de ejecución.
+  - **Corrección:** el estudiante activó *Acceso al notebook* para `GOREST_TOKEN` en este notebook y ejecutó las celdas 1 y 3. No hubo que cambiar el código. Lección: las variables viven en el entorno de ejecución, así que las celdas se ejecutan en orden y en el mismo notebook.
+- **Resultado (cliente id 8694141):**
+  | Operación | Método y ruta | Esperado | Obtenido |
+  |---|---|---|---|
+  | Consultar clientes | GET /users?page=1&per_page=5 | 200 | **200 OK** (5 usuarios, 588 páginas) |
+  | Registrar cliente | POST /users | 201 | **201 Created** (id 8694141) |
+  | Verificar registro | GET /users/8694141 | 200 | **200 OK** |
+  | Reemplazar datos | PUT /users/8694141 | 200 | **200 OK** (cambian name y email) |
+  | Cambiar estado | PATCH /users/8694141 | 200 | **200 OK** (solo status → inactive) |
+  | Dar de baja | DELETE /users/8694141 | 204 | **204 No Content** |
+  | Comprobar baja | GET /users/8694141 | 404 | **404 Not Found** ("Resource not found") |
+- **Evidencia PUT vs PATCH:** el PUT envió los 4 campos y reemplazó name ("David Rueda" → "David Alejandro Rueda") y email. El PATCH envió solo `{"status": "inactive"}`, y name, email y gender quedaron como los dejó el PUT.
