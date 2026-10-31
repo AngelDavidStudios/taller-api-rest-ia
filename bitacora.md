@@ -16,3 +16,18 @@ Formato de cada entrada: **Prompt** (qué se pidió) → **Respuesta de la IA** 
 - **Prompt:** se entregó a la IA el PDF del taller y se pidió registrar las instrucciones, armar un plan y definir entregables.
 - **Respuesta de la IA:** generó `CLAUDE.md` con el caso, tabla de verificación, entregables, preguntas y rúbrica; propuso un plan en 7 fases (0–6).
 - **Corrección:** ninguna; el estudiante definió datos de portada, convención de commits y que la demo la graba él.
+
+## Iteración 1 — Calentamiento en el sandbox (JSONPlaceholder)
+
+- **Prompt:** "Crea el notebook desde cero: una función `mostrar()` que imprima método, URL, código de estado y JSON, y un calentamiento con GET, POST, PUT, PATCH y un GET final contra `jsonplaceholder.typicode.com/posts` para comprobar si el cambio persiste."
+- **Respuesta de la IA:** celda 1 (`requests` + `mostrar()`, que maneja respuestas sin cuerpo como 204) y celda 2 (las 5 peticiones con `timeout=10` y una verificación automática de persistencia).
+- **Ejecución / resultado:**
+  | Método | URL | Código |
+  |---|---|---|
+  | GET | /posts/1 | 200 OK |
+  | POST | /posts | 201 Created (id simulado 101) |
+  | PUT | /posts/1 | 200 OK (devuelve solo los campos enviados) |
+  | PATCH | /posts/1 | 200 OK (cambia `title`, conserva `body` original) |
+  | GET final | /posts/1 | 200 OK — **título original: el cambio NO persistió** |
+- **Hallazgo:** JSONPlaceholder responde como si guardara, pero no persiste nada (sandbox). Además, ya se ve la diferencia PUT (reemplaza el recurso completo) vs PATCH (modifica solo el campo enviado).
+- **Corrección:** ninguna; funcionó a la primera.
