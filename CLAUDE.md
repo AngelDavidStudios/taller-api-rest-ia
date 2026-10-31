@@ -20,7 +20,11 @@ Fuente de verdad: `Instrucciones/Taller_Integracion_API_REST_con_IA.pdf` (releer
 - **Estudiante:** David Rueda · **Asignatura/paralelo:** ISWZ3104 · **Entrega:** 2026-10-31.
 - **Notebook:** se crea desde cero (no se usa `taller-apis-rest-estudiante.ipynb`).
 - **Demo (4 pts):** la graba el usuario; Claude solo toma las capturas del informe.
-- **Token GoREST:** el usuario ya lo tiene (lo ingresa él con `getpass`).
+- **Token GoREST:** el usuario ya lo tiene (secreto `GOREST_TOKEN` en Colab).
+- **Cuenta de Google del proyecto: la cuenta "principal"** (Colab y Drive del taller).
+  **NO usar la cuenta la cuenta secundaria.** El MCP de Google Drive está conectado a la cuenta secundaria, así que
+  **no usar el MCP de Drive** en este proyecto salvo que el usuario lo reconecte con la cuenta principal.
+  Las capturas en Chrome se toman en una pestaña nueva usando la URL del notebook que entrega el usuario.
 - **Repositorio GitHub:** sí, **público** (cuenta `AngelDavidStudios`), con `.ipynb`, `integracion.log` y README.
   **El PDF de `Instrucciones/` NO se sube** (está en `.gitignore`).
 - **Validación previa (firma personal de David Rueda)** para POST/PUT, además de email con formato válido,
