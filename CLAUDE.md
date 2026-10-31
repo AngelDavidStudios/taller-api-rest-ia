@@ -21,7 +21,14 @@ Fuente de verdad: `Instrucciones/Taller_Integracion_API_REST_con_IA.pdf` (releer
 - **Notebook:** se crea desde cero (no se usa `taller-apis-rest-estudiante.ipynb`).
 - **Demo (4 pts):** la graba el usuario; Claude solo toma las capturas del informe.
 - **Token GoREST:** el usuario ya lo tiene (lo ingresa él con `getpass`).
-- **Repositorio GitHub:** sí (cuenta `AngelDavidStudios`), con `.ipynb`, `integracion.log` y README.
+- **Repositorio GitHub:** sí, **público** (cuenta `AngelDavidStudios`), con `.ipynb`, `integracion.log` y README.
+  **El PDF de `Instrucciones/` NO se sube** (está en `.gitignore`).
+- **Validación previa (firma personal de David Rueda)** para POST/PUT, además de email con formato válido,
+  `gender ∈ {male, female}` y `status ∈ {active, inactive}`:
+  1. **Nombre completo:** ≥ 2 palabras, solo letras y espacios, cada palabra con mayúscula inicial, 5–60 caracteres.
+  2. **Dominio corporativo ficticio:** el email debe terminar en `@techdistribuidora.com` (regla de negocio; GoREST no verifica dominios).
+  3. **Sin emails desechables:** rechazar mailinator.com, tempmail.com, yopmail.com, etc. (se valida antes que el dominio, con mensaje propio).
+  - Para que el email sea único en GoREST: `nombre.apellido.<timestamp>@techdistribuidora.com`.
 
 ## Convención de commits (obligatoria)
 
