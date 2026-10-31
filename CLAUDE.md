@@ -28,7 +28,7 @@ Fuente de verdad: `Instrucciones/Taller_Integracion_API_REST_con_IA.pdf` (releer
   **NO usar la cuenta la cuenta secundaria.** El MCP de Google Drive está conectado a la cuenta secundaria, así que
   **no usar el MCP de Drive** en este proyecto salvo que el usuario lo reconecte con la cuenta principal.
   Las capturas en Chrome se toman en una pestaña nueva usando la URL del notebook que entrega el usuario.
-- **Repositorio GitHub:** sí, **público** (cuenta `AngelDavidStudios`), con `.ipynb`, `integracion.log` y README.
+- **Repositorio GitHub:** https://github.com/AngelDavidStudios/taller-api-rest-ia — **público** (cuenta `AngelDavidStudios`), con `.ipynb`, `integracion.log` y README.
   **El PDF de `Instrucciones/` NO se sube** (está en `.gitignore`).
 - **Validación previa (firma personal de David Rueda)** para POST/PUT, además de email con formato válido,
   `gender ∈ {male, female}` y `status ∈ {active, inactive}`:
