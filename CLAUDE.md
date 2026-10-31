@@ -21,6 +21,7 @@ Fuente de verdad: `Instrucciones/Taller_Integracion_API_REST_con_IA.pdf` (releer
 - **Notebook:** se crea desde cero (no se usa `taller-apis-rest-estudiante.ipynb`).
   `Taller_API_REST_DavidRueda` → https://colab.research.google.com/drive/1AhVf7ZG6cOUF6s2lRIoFM21y8uBUl8Ua
   (Drive de la cuenta principal; el MCP de Colab está conectado a esta copia, no al scratchpad original).
+- **Informe (Claude Docs):** https://claude.ai/artifact/RmF8dkLxkfeeeFuVPECxs7 (capturas ya subidas e insertadas).
 - **Demo (4 pts):** la graba el usuario; Claude solo toma las capturas del informe.
 - **Token GoREST:** el usuario ya lo tiene (secreto `GOREST_TOKEN` en Colab).
 - **Cuenta de Google del proyecto: la cuenta "principal"** (Colab y Drive del taller).
